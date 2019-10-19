@@ -1,13 +1,13 @@
 replicaCount: 1
 image:
-  repository: fenglc/pgadmin4
+  repository: dpage/pgadmin4
   tag:
   pullPolicy: IfNotPresent
 service:
   name: pgadmin
-  type: LoadBalancer
-  externalPort: 5050
-  internalPort: 5050
+  type: NodePort
+  externalPort: 80
+  internalPort: 80
 ingress:
   enabled: false
   staticIPReservation: pgadmin-static-ip
@@ -16,8 +16,8 @@ ingress:
     clusterIssuer: letsencrypt-staging
     externalDNSName: pgadmin.example.com
 pgadmin:
-  username: pgadmin4@pgadmin.org
-  #password: admin
+  username: admin
+  password: passw0rd
 persistence:
   enabled: true
   #storageClass:

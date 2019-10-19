@@ -1,0 +1,33 @@
+[root@k8s-master pgadmin-chart]# helm install --name pgadmin4 --namespace zh-applications ./
+NAME:   pgadmin4
+LAST DEPLOYED: Sat Oct 19 13:10:49 2019
+NAMESPACE: zh-applications
+STATUS: DEPLOYED
+
+RESOURCES:
+==> v1/Deployment
+NAME                    READY  UP-TO-DATE  AVAILABLE  AGE
+pgadmin4-pgadmin-chart  0/1    1           0          0s
+
+==> v1/PersistentVolumeClaim
+NAME                    STATUS   VOLUME  CAPACITY  ACCESS MODES  STORAGECLASS  AGE
+pgadmin4-pgadmin-chart  Pending  0s
+
+==> v1/Pod(related)
+NAME                                     READY  STATUS   RESTARTS  AGE
+pgadmin4-pgadmin-chart-7d789d5894-xhwh4  0/1    Pending  0         0s
+
+==> v1/Secret
+NAME                    TYPE    DATA  AGE
+pgadmin4-pgadmin-chart  Opaque  1     0s
+
+==> v1/Service
+NAME                    TYPE      CLUSTER-IP     EXTERNAL-IP  PORT(S)         AGE
+pgadmin4-pgadmin-chart  NodePort  10.99.103.186  <none>       5050:31136/TCP  0s
+
+
+NOTES:
+1. Get the application URL by running these commands:
+  export NODE_PORT=$(kubectl get --namespace zh-applications -o jsonpath="{.spec.ports[0].nodePort}" services pgadmin4-pgadmin-chart)
+  export NODE_IP=$(kubectl get nodes --namespace zh-applications -o jsonpath="{.items[0].status.addresses[0].address}")
+  echo http://$NODE_IP:$NODE_PORT

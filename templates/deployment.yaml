@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ template "fullname" . }}
@@ -9,6 +9,9 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "name" . }}
   template:
     metadata:
       labels:
@@ -20,9 +23,9 @@ spec:
           image: "{{ .Values.image.repository }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-          - name: DEFAULT_USER
+          - name: PGADMIN_DEFAULT_EMAIL
             value: {{ .Values.pgadmin.username }}
-          - name: DEFAULT_PASSWORD
+          - name: PGADMIN_DEFAULT_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: {{ template "fullname" . }}
